@@ -34,11 +34,8 @@ public class BorrowBook {
                 System.out.println(person.getName()+" muon cuon "+book.getNameBook());
                 int time = r.nextInt(1500);
                 Thread.sleep(time);
-              //  se.availablePermits();
-                synchronized (this){
-                    checkBook[i]=false;
-                    System.out.println(person.getName()+" tra sach");
-                }
+                checkBook[i]=false;
+                System.out.println(person.getName()+" tra sach "+book.getNameBook());
             }
             else
                 System.out.println(person.getName()+" vui long cho");
