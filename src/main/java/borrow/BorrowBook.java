@@ -11,7 +11,7 @@ public class BorrowBook {
 
     public static BorrowBook play = new BorrowBook();
 
-    Semaphore se = new Semaphore(50,true);
+    static Semaphore se = new Semaphore(50,true);
 
     public static BorrowBook borbowBook(){
         return play;
@@ -35,8 +35,10 @@ public class BorrowBook {
                 int time = r.nextInt(1500);
                 Thread.sleep(time);
               //  se.availablePermits();
-                checkBook[i]=false;
-                System.out.println(person.getName()+" tra sach");
+                synchronized (this){
+                    checkBook[i]=false;
+                    System.out.println(person.getName()+" tra sach");
+                }
             }
             else
                 System.out.println(person.getName()+" vui long cho");
@@ -45,7 +47,7 @@ public class BorrowBook {
         }
     }
 
-    public int searchBook(){
+    public synchronized int searchBook(){
         for(int i=0;i<n;i++){
             if(!checkBook[i]){
                 checkBook[i]=true;
