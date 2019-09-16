@@ -1,12 +1,10 @@
 package library;
 
-import borrow.BorrowBook;
 import model.Book;
 import model.ListBook;
 import model.ListPerson;
 import model.Person;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
