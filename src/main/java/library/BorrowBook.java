@@ -6,6 +6,8 @@ import model.Person;
 
 import java.util.Random;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class BorrowBook {
 
@@ -17,8 +19,8 @@ public class BorrowBook {
         return newBorrowBook;
     }
 
-    static Semaphore se = new Semaphore(50,true);
-
+    static Semaphore se = new Semaphore(2,true);
+    final Lock lock = new ReentrantLock();
     int n = listBook.getList().size();
     boolean[] checkBook = new boolean[n];
 
@@ -38,14 +40,19 @@ public class BorrowBook {
             System.out.println("muon that bai");
         }
     }
-    public synchronized int searchBook(){
-        for(int i=0;i<n;i++){
-            if(!checkBook[i]){
-                checkBook[i]=true;
-                return i;
+    public  int searchBook(){
+        try {
+            lock.lock();
+            for(int i=0;i<n;i++){
+                if(!checkBook[i]){
+                    checkBook[i]=true;
+                    return i;
+                }
             }
+            return -1;
+        }finally {
+            lock.unlock();
         }
-        return -1;
-    }
 
+    }
 }
