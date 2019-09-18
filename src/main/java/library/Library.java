@@ -1,42 +1,19 @@
 package library;
 
-import model.Book;
-import model.ListBook;
-import model.ListPerson;
 import model.Person;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class Library {
-
-    List<Person> listPerson;
-    List<Book> listBook;
-
-    public Library(){
-        ListBook listBook = new ListBook();
-        ListPerson listPerson = new ListPerson();
-        this.listPerson = listPerson.getList();
-        this.listBook = listBook.getList();
-    }
-
-    public void run(){
-        ExecutorService pool = Executors.newCachedThreadPool();
-        for(int i=0;i<listPerson.size();i++){
-            Person person = listPerson.get(i);
-            pool.submit(new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        BorrowBook.borbowBook().borrow(person);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
-        pool.shutdown();
+    public static void main(String[] args) throws InterruptedException {
+        BlockingQueue<Person> queue = new LinkedBlockingQueue<>(5);
+        boolean[] checkBook = new boolean[5];
+        List<Person> list = new ArrayList<>();
+        new Thread(new Producer(checkBook,list,queue)).start();
+        new Thread(new Consumer(checkBook,list,queue)).start();
     }
 }
 

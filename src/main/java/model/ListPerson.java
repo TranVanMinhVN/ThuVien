@@ -7,11 +7,10 @@ public class ListPerson {
     List<Person> list;
     public ListPerson(){
         list = new ArrayList<>();
-        for(int i=1;i<=1000;i++){
+        for(int i=1;i<=20;i++){
             list.add(new Person(i,"person "+i));
         }
     }
-
     public List<Person> getList() {
         return list;
     }

@@ -3,6 +3,15 @@ package model;
 public class Person {
     private  int id;
     private String name;
+    private int idBook;
+
+    public int getIdBook() {
+        return idBook;
+    }
+
+    public void setIdBook(int idBook) {
+        this.idBook = idBook;
+    }
 
     public Person(int id, String name) {
         this.id = id;

@@ -7,7 +7,7 @@ public class ListBook {
     List<Book> list;
     public ListBook(){
         list = new ArrayList<>();
-        for (int i=1;i<=2;i++){
+        for (int i=0;i<=4;i++){
             list.add(new Book(i,"book "+i));
         }
     }
